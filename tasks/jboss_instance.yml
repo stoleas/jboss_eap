@@ -155,7 +155,7 @@
 
 - name: Manage JBoss Ports Firewalld service
   firewalld:
-    port: "{{ item }}"
+    port: "{{ item }}/tcp"
     permanent: True
     state: enabled
   loop:
