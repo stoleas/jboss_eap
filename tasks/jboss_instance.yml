@@ -153,15 +153,11 @@
     dest: "{{ jboss_instance_mktemp.path }}/{{ jboss_eap_runtime_conf_filename }}"
     line: "JAVA_OPTS=\"$JAVA_OPTS {{ instance_java_opts }}\""
 
-- name: Manage JBoss Ports Firewalld service
-  firewalld:
-    port: "{{ item }}/tcp"
-    permanent: True
-    state: enabled
-  loop:
-    - "{{ instance_calculated_http_port }}"
-    - "{{ jboss_eap_default_management_port }}"
-
+- name: Manage Firewalld service
+  service:
+    name: firewalld
+    state: stopped
+    enabled: False
 
 - name: Copy JBoss Service Configuration File
   become: true
